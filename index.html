@@ -31,7 +31,7 @@
         }
     </script>
     <style>
-        body { background-color: #181A20; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #181A20; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; height: 100vh; height: 100dvh; overflow: hidden; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         @keyframes slideUp {
             from { transform: translateY(100%); }
@@ -40,7 +40,7 @@
         .modal-anim { animation: slideUp 0.3s ease-out forwards; }
     </style>
 </head>
-<body class="flex flex-col h-screen max-w-md mx-auto relative overflow-hidden select-none">
+<body class="flex flex-col max-w-md mx-auto relative select-none">
     
     <!-- Interactive Modal Window (Binance Bottom Sheet Style) -->
     <div id="binanceModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-end justify-center">
@@ -50,7 +50,7 @@
                     <div id="modal-icon" class="w-8 h-8 rounded-full bg-binanceYellow/20 text-binanceYellow flex items-center justify-center">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
-                    <h3 id="modal-title" class="text-base font-bold text-white">Título de la ventana</h3>
+                    <h3 id="modal-title" class="text-base font-bold text-white">Título</h3>
                 </div>
                 <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-binanceDark text-binanceTextGray flex items-center justify-center hover:text-white">
                     <i class="fa-solid fa-xmark text-lg"></i>
@@ -68,8 +68,8 @@
     </div>
 
     <!-- Top Header -->
-    <header class="flex items-center justify-between px-4 py-3 bg-binanceDark shrink-0">
-        <div class="flex items-center space-x-3 cursor-pointer active:scale-95 transition-transform" onclick="openModal('Perfil VIP', '<div class=\'text-center space-y-3\'><div class=\'w-16 h-16 bg-binanceYellow/20 text-binanceYellow rounded-full flex items-center justify-center mx-auto text-2xl font-bold\'>VIP 1</div><p class=\'text-white font-semibold\'>Samir Zahi Hanna (LinkServi)</p><p class=\'text-xs text-binanceTextGray\'>Estado de cuenta verificado y protegido por seguridad biométrica.</p></div>', 'fa-trophy')">
+    <header class="flex items-center justify-between px-4 py-3 bg-binanceDark shrink-0 z-20">
+        <div class="flex items-center space-x-3 cursor-pointer active:scale-95 transition-transform" onclick="openModal('Perfil VIP', '<div class=\'text-center space-y-3\'><div class=\'w-16 h-16 bg-binanceYellow/20 text-binanceYellow rounded-full flex items-center justify-center mx-auto text-2xl font-bold\'>VIP 1</div><p class=\'text-white font-semibold\'>Samir Zahi Hanna (LinkServi)</p><p class=\'text-xs text-binanceTextGray\'>Estado de cuenta verificado y protegido.</p></div>', 'fa-trophy')">
             <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-600 to-binanceYellow p-[1.5px] shadow-md flex items-center justify-center">
                 <div class="w-full h-full rounded-full bg-binanceCard flex items-center justify-center text-binanceYellow">
                     <i class="fa-solid fa-trophy text-xs"></i>
@@ -89,8 +89,8 @@
         </div>
     </header>
 
-    <!-- Main Content (Scrollable) -->
-    <main class="flex-1 overflow-y-auto hide-scrollbar pb-36 px-4 pt-2">
+    <!-- Main Content (Scrollable Area) -->
+    <main class="flex-1 overflow-y-auto hide-scrollbar px-4 pt-2" style="padding-bottom: 140px;">
         <!-- Balance Section -->
         <div class="flex items-center text-xs text-binanceTextGray space-x-1 cursor-pointer" onclick="openModal('Resumen de Activos', '<div class=\'space-y-2\'><div class=\'flex justify-between text-white text-xs\'><span>Billetera Spot</span><span class=\'font-bold\'>140.00 USDT</span></div><div class=\'flex justify-between text-white text-xs\'><span>Billetera Earn</span><span class=\'font-bold\'>0.00 USDT</span></div><div class=\'flex justify-between text-white text-xs\'><span>Billetera de Fondos</span><span class=\'font-bold\'>0.00 USDT</span></div></div>', 'fa-wallet')">
             <span>Valor total estimado(USDT)</span>
@@ -137,7 +137,7 @@
                 </div>
                 <span class="text-[10px] text-binanceTextGray">Referido</span>
             </div>
-            <div onclick="openModal('Binance Verify', '<div class=\'space-y-2 text-center\'><i class=\'fa-solid fa-shield-halved text-4xl text-binanceGreen\'><//i><p class=\'text-white font-bold text-xs\'>Identidad Verificada (KYC Nivel 2)</p><p class=\'text-[10px]\'>Tu cuenta cumple con los estándares de seguridad internacional.</p></div>', 'fa-circle-check')" class="flex flex-col items-center cursor-pointer active:opacity-70">
+            <div onclick="openModal('Binance Verify', '<div class=\'space-y-2 text-center\'><i class=\'fa-solid fa-shield-halved text-4xl text-binanceGreen\'></i><p class=\'text-white font-bold text-xs mt-2\'>Identidad Verificada (KYC Nivel 2)</p><p class=\'text-[10px]\'>Tu cuenta cumple con los estándares de seguridad internacional.</p></div>', 'fa-circle-check')" class="flex flex-col items-center cursor-pointer active:opacity-70">
                 <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1">
                     <i class="fa-solid fa-circle-check text-base"></i>
                 </div>
@@ -185,4 +185,81 @@
                     </div>
                     <div class="flex items-center justify-between text-xs">
                         <div class="flex items-center space-x-1.5">
-                            <div class="w-4 h-4 rounded-full bg-amber-500 text-binanceDark font-bold flex items-c
+                            <div class="w-4 h-4 rounded-full bg-amber-500 text-binanceDark font-bold flex items-center justify-center text-[9px]">U</div>
+                            <span class="font-bold">U</span>
+                        </div>
+                        <span class="text-[10px] text-binanceTextGray">APR: 6.15%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crypto Markets Grid -->
+        <div class="grid grid-cols-2 gap-3 mt-4 mb-4">
+            <div onclick="openModal('Bitcoin (BTC)', '<div class=\'space-y-3 text-center\'><p class=\'text-2xl font-black text-white\'>$80,327.42</p><p class=\'text-xs text-binanceRed\'>-0.76% (24h)</p><button class=\'w-full bg-binanceGreen text-white font-bold py-2.5 rounded-xl text-xs\'>Comprar BTC</button></div>', 'fa-bitcoin')" class="bg-binanceCard p-3 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
+                <div class="flex items-center space-x-2 mb-2">
+                    <div class="w-6 h-6 rounded-full bg-amber-500 text-binanceDark font-bold flex items-center justify-center text-xs">₿</div>
+                    <span class="font-bold text-xs">BTC</span>
+                </div>
+                <div class="font-black text-sm">80,327.42</div>
+                <div class="text-[11px] text-binanceRed mt-0.5"><i class="fa-solid fa-caret-down"></i> 0.76%</div>
+            </div>
+            <div onclick="openModal('Binance Coin (BNB)', '<div class=\'space-y-3 text-center\'><p class=\'text-2xl font-black text-white\'>$739.35</p><p class=\'text-xs text-binanceGreen\'>+0.06% (24h)</p><button class=\'w-full bg-binanceYellow text-binanceDark font-bold py-2.5 rounded-xl text-xs\'>Comprar BNB</button></div>', 'fa-coins')" class="bg-binanceCard p-3 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
+                <div class="flex items-center space-x-2 mb-2">
+                    <div class="w-6 h-6 rounded-full bg-amber-400 text-binanceDark font-bold flex items-center justify-center text-xs">B</div>
+                    <span class="font-bold text-xs">BNB</span>
+                </div>
+                <div class="font-black text-sm">739.35</div>
+                <div class="text-[11px] text-binanceGreen mt-0.5"><i class="fa-solid fa-caret-up"></i> 0.06%</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sub-menu Navigation Bar (Descubre, Siguiendo, Acciones, Clasifica) -->
+    <div class="absolute bottom-16 left-0 right-0 bg-binanceDark px-4 py-2.5 flex items-center justify-between text-xs text-binanceTextGray border-t border-binanceBorder/30 z-30 shrink-0">
+        <span onclick="openModal('Descubre', '<p class=\'text-white text-xs\'>Contenido de creadores y noticias de criptomonedas en tiempo real.</p>', 'fa-compass')" class="text-white font-bold border-b-2 border-binanceYellow pb-0.5 cursor-pointer">Descubre</span>
+        <span onclick="openModal('Siguiendo', '<p class=\'text-white text-xs\'>Actualizaciones de tus perfiles y canales seguidos.</p>', 'fa-users')" class="cursor-pointer hover:text-white">Siguiendo</span>
+        <span onclick="openModal('Acciones', '<p class=\'text-white text-xs\'>Listado de acciones tokenizadas y mercados globales.</p>', 'fa-chart-line')" class="cursor-pointer hover:text-white">Acciones</span>
+        <span onclick="openModal('Clasifica', '<p class=\'text-white text-xs\'>Ranking oficial de capitalización de mercado.</p>', 'fa-trophy')" class="cursor-pointer hover:text-white">Clasifica</span>
+        <i class="fa-solid fa-chevron-up text-[10px] text-binanceTextGray cursor-pointer" onclick="openModal('Menú Expandido', '<p class=\'text-white text-xs\'>Opciones avanzadas de navegación.</p>', 'fa-bars')"></i>
+    </div>
+
+    <!-- Bottom Navigation Bar (Fixed Exact Binance Icons & Layout) -->
+    <nav class="absolute bottom-0 left-0 right-0 h-16 bg-binanceDark border-t border-binanceBorder/40 flex justify-around items-center px-2 z-40 shrink-0">
+        <div onclick="openModal('Inicio', '<p class=\'text-white text-xs text-center\'>Estás en el panel principal de LinkServi Pro - Binance Style.</p>', 'fa-house')" class="flex flex-col items-center text-binanceYellow cursor-pointer active:scale-95 transition-transform">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.5L18.5 12 12 18.5 5.5 12 12 5.5z"/></svg>
+            <span class="text-[10px] mt-0.5 font-medium">Inicio</span>
+        </div>
+        <div onclick="openModal('Tarjeta Binance', '<div class=\'space-y-3 text-center\'><i class=\'fa-regular fa-credit-card text-4xl text-binanceYellow\'></i><p class=\'text-white font-bold\'>Tarjeta Virtual y Física Activa</p><p class=\'text-xs\'>Gestiona tus pagos en comercios nacionales e internacionales.</p></div>', 'fa-credit-card')" class="flex flex-col items-center text-binanceTextGray cursor-pointer hover:text-white active:scale-95 transition-transform">
+            <i class="fa-regular fa-credit-card text-lg"></i>
+            <span class="text-[10px] mt-1 font-medium">Tarjeta</span>
+        </div>
+        <!-- Central Floating QR Button -->
+        <div onclick="openModal('Escáner QR / Pago Móvil', '<div class=\'space-y-3 text-center\'><div class=\'w-32 h-32 border-2 border-binanceYellow mx-auto rounded-xl flex items-center justify-center bg-binanceDark relative overflow-hidden\'><i class=\'fa-solid fa-qrcode text-6xl text-binanceYellow opacity-80\'></i><div class=\'absolute inset-x-0 h-1 bg-binanceGreen animate-bounce\'></div></div><p class=\'text-white text-xs font-bold\'>Apunta al código QR para escanear o pagar</p></div>', 'fa-qrcode')" class="flex flex-col items-center -mt-6 cursor-pointer">
+            <div class="w-14 h-14 rounded-full bg-binanceYellow text-binanceDark flex items-center justify-center shadow-xl border-4 border-binanceDark active:scale-95 transition-transform">
+                <i class="fa-solid fa-qrcode text-xl font-bold"></i>
+            </div>
+        </div>
+        <div onclick="openModal('Invertir', '<div class=\'space-y-2\'><p class=\'text-white text-xs\'>Planes de Inversión Automática (DCA) configurados.</p><div class=\'bg-binanceDark p-3 rounded-xl border border-binanceBorder flex justify-between\'><span class=\'text-white text-xs\'>Compra diaria de BTC</span><span class=\'text-binanceGreen text-xs\'>Activo</span></div></div>', 'fa-chart-line')" class="flex flex-col items-center text-binanceTextGray cursor-pointer hover:text-white active:scale-95 transition-transform">
+            <i class="fa-solid fa-chart-line text-lg"></i>
+            <span class="text-[10px] mt-1 font-medium">Invertir</span>
+        </div>
+        <div onclick="openModal('Activos', '<div class=\'space-y-3\'><div class=\'flex justify-between items-center bg-binanceDark p-3 rounded-xl border border-binanceBorder\'><span class=\'text-white text-xs\'>USDT (Tether)</span><span class=\'text-white font-bold text-xs\'>140.00 USDT</span></div><div class=\'flex justify-between items-center bg-binanceDark p-3 rounded-xl border border-binanceBorder\'><span class=\'text-white text-xs\'>BNB (Binance Coin)</span><span class=\'text-white font-bold text-xs\'>0.00 BNB</span></div></div>', 'fa-wallet')" class="flex flex-col items-center text-binanceTextGray cursor-pointer hover:text-white active:scale-95 transition-transform">
+            <i class="fa-solid fa-wallet text-lg"></i>
+            <span class="text-[10px] mt-1 font-medium">Activos</span>
+        </div>
+    </nav>
+
+    <script>
+        function openModal(title, content, iconClass) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerHTML = content;
+            document.getElementById('modal-icon').innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+            document.getElementById('binanceModal').classList.remove('hidden');
+        }
+        function closeModal() {
+            document.getElementById('binanceModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
