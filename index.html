@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Binance</title>
-    <!-- Configuración PWA 100% Instalable -->
+    <!-- PWA Config 100% Instalable -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -78,7 +78,7 @@
     </header>
 
     <!-- Main Content (Scrollable) -->
-    <main class="flex-1 overflow-y-auto hide-scrollbar pb-28 px-4 pt-2">
+    <main class="flex-1 overflow-y-auto hide-scrollbar pb-32 px-4 pt-2">
         <!-- Balance Section -->
         <div class="flex items-center text-xs text-binanceTextGray space-x-1 cursor-pointer" onclick="showToast('Balance General', 'Mostrando desglose de activos totales.')">
             <span>Valor total estimado(USDT)</span>
@@ -111,35 +111,35 @@
             </button>
         </div>
 
-        <!-- Quick Icons Grid -->
+        <!-- Quick Icons Grid (Exact Binance Style) -->
         <div class="grid grid-cols-5 gap-1 mt-5 text-center">
             <div onclick="showToast('Spot', 'Abriendo gráficos de trading Spot.')" class="flex flex-col items-center cursor-pointer active:opacity-70">
-                <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1 shadow">
-                    <i class="fa-solid fa-chart-pie text-base"></i>
+                <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1">
+                    <i class="fa-solid fa-crosshairs text-base"></i>
                 </div>
                 <span class="text-[10px] text-binanceTextGray">Spot</span>
             </div>
             <div onclick="showToast('Referidos', 'Tu enlace de invitado LinkServi copiado.')" class="flex flex-col items-center cursor-pointer active:opacity-70">
-                <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1 shadow">
+                <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1">
                     <i class="fa-solid fa-user-plus text-base"></i>
                 </div>
                 <span class="text-[10px] text-binanceTextGray">Referido</span>
             </div>
             <div onclick="showToast('Binance Verify', 'Identidad verificada y protegida.')" class="flex flex-col items-center cursor-pointer active:opacity-70">
-                <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1 shadow">
+                <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1">
                     <i class="fa-solid fa-circle-check text-base"></i>
                 </div>
                 <span class="text-[10px] text-binanceTextGray">Binance Verify</span>
             </div>
             <div onclick="showToast('P2P Express', 'Comercio seguro sin comisiones.')" class="flex flex-col items-center cursor-pointer active:opacity-70">
-                <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1 shadow">
-                    <i class="fa-solid fa-id-card text-base"></i>
+                <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1">
+                    <i class="fa-solid fa-address-card text-base"></i>
                 </div>
                 <span class="text-[10px] text-binanceTextGray">P2P</span>
             </div>
             <div onclick="showToast('Más servicios', 'Explorando herramientas y pasarelas de pago.')" class="flex flex-col items-center cursor-pointer active:opacity-70">
-                <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1 shadow">
-                    <i class="fa-solid fa-border-all text-base"></i>
+                <div class="w-11 h-11 rounded-2xl bg-binanceCard flex items-center justify-center text-binanceYellow mb-1">
+                    <i class="fa-solid fa-table-cells text-base"></i>
                 </div>
                 <span class="text-[10px] text-binanceTextGray">Más</span>
             </div>
@@ -201,18 +201,24 @@
                 <div class="text-[11px] text-binanceGreen mt-0.5"><i class="fa-solid fa-caret-up"></i> 0.06%</div>
             </div>
         </div>
-
-        <!-- Extra scroll content -->
-        <div class="mt-4 bg-binanceCard p-4 rounded-2xl text-center text-xs text-binanceTextGray mb-6">
-            Desliza para ver más opciones y herramientas de LinkServi Pro.
-        </div>
     </main>
+
+    <!-- Sub-menu Navigation Bar (Descubre, Siguiendo, Acciones, Clasifica) -->
+    <div class="absolute bottom-16 left-0 right-0 bg-binanceDark px-4 py-2 flex items-center justify-between text-xs text-binanceTextGray border-t border-binanceBorder/30 z-30 shrink-0">
+        <span onclick="showToast('Descubre', 'Estás en la sección Descubre')" class="text-white font-bold border-b-2 border-binanceYellow pb-0.5 cursor-pointer">Descubre</span>
+        <span onclick="showToast('Siguiendo', 'Cargando fuentes y creadores seguidos')" class="cursor-pointer hover:text-white">Siguiendo</span>
+        <span onclick="showToast('Acciones', 'Mostrando acciones y mercados populares')" class="cursor-pointer hover:text-white">Acciones</span>
+        <span onclick="showToast('Clasifica', 'Ranking global de criptomonedas')" class="cursor-pointer hover:text-white">Clasifica</span>
+        <i class="fa-solid fa-chevron-up text-[10px] text-binanceTextGray cursor-pointer"></i>
+    </div>
 
     <!-- Bottom Navigation Bar (Fixed Exact Replica) -->
     <nav class="absolute bottom-0 left-0 right-0 h-16 bg-binanceDark border-t border-binanceBorder/40 flex justify-around items-center px-2 z-40 shrink-0">
         <div onclick="showToast('Inicio', 'Estás en la pantalla principal')" class="flex flex-col items-center text-binanceYellow cursor-pointer active:scale-95 transition-transform">
-            <i class="fa-solid fa-house text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Inicio</span>
+            <div class="w-5 h-5 flex items-center justify-center font-bold text-sm">
+                <i class="fa-solid fa-diamond"></i>
+            </div>
+            <span class="text-[10px] mt-0.5 font-medium">Inicio</span>
         </div>
         <div onclick="showToast('Tarjeta Binance', 'Consultando estado de tarjeta física y virtual')" class="flex flex-col items-center text-binanceTextGray cursor-pointer hover:text-white active:scale-95 transition-transform">
             <i class="fa-regular fa-credit-card text-lg"></i>
