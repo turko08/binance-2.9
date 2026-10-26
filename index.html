@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Binance</title>
-    <!-- PWA Config 100% Instalable -->
+    <!-- Favicon e Icono PWA en PNG para forzar el logo correcto en Android -->
+    <link rel="icon" type="image/png" href="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png">
+    <link rel="apple-touch-icon" href="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png">
+    
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#181A20">
-    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"Binance","short_name":"Binance","start_url":"./","display":"standalone","background_color":"#181A20","theme_color":"#181A20","icons":[{"src":"https://cryptologos.cc/logos/binance-coin-bnb-logo.svg","sizes":"512x512","type":"image/svg+xml","purpose":"any maskable"}]}'>
+    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"Binance","short_name":"Binance","start_url":"./","display":"standalone","background_color":"#181A20","theme_color":"#181A20","icons":[{"src":"https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}'>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
@@ -42,7 +45,7 @@
 </head>
 <body class="flex flex-col max-w-md mx-auto relative select-none">
     
-    <!-- Interactive Modal Window (Binance Bottom Sheet Style) -->
+    <!-- Interactive Modal Window -->
     <div id="binanceModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-end justify-center">
         <div class="bg-binanceCard w-full max-w-md rounded-t-3xl p-5 border-t border-binanceBorder modal-anim max-h-[85vh] flex flex-col">
             <div class="flex items-center justify-between pb-3 border-b border-binanceBorder shrink-0">
@@ -56,9 +59,7 @@
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
-            <div id="modal-body" class="py-4 overflow-y-auto space-y-4 text-sm text-binanceTextGray">
-                <!-- Contenido dinámico -->
-            </div>
+            <div id="modal-body" class="py-4 overflow-y-auto space-y-4 text-sm text-binanceTextGray"></div>
             <div id="modal-footer" class="pt-3 border-t border-binanceBorder shrink-0">
                 <button onclick="closeModal()" class="w-full bg-binanceYellow text-binanceDark font-bold py-3 rounded-xl text-sm active:scale-95 transition-transform">
                     Aceptar / Entendido
@@ -89,7 +90,7 @@
         </div>
     </header>
 
-    <!-- Main Content (Scrollable Area) -->
+    <!-- Main Content -->
     <main class="flex-1 overflow-y-auto hide-scrollbar px-4 pt-2" style="padding-bottom: 140px;">
         <!-- Balance Section -->
         <div class="flex items-center text-xs text-binanceTextGray space-x-1 cursor-pointer" onclick="openModal('Resumen de Activos', '<div class=\'space-y-2\'><div class=\'flex justify-between text-white text-xs\'><span>Billetera Spot</span><span class=\'font-bold\'>140.00 USDT</span></div><div class=\'flex justify-between text-white text-xs\'><span>Billetera Earn</span><span class=\'font-bold\'>0.00 USDT</span></div><div class=\'flex justify-between text-white text-xs\'><span>Billetera de Fondos</span><span class=\'font-bold\'>0.00 USDT</span></div></div>', 'fa-wallet')">
@@ -215,7 +216,7 @@
         </div>
     </main>
 
-    <!-- Sub-menu Navigation Bar (Descubre, Siguiendo, Acciones, Clasifica) -->
+    <!-- Sub-menu Navigation Bar -->
     <div class="absolute bottom-16 left-0 right-0 bg-binanceDark px-4 py-2.5 flex items-center justify-between text-xs text-binanceTextGray border-t border-binanceBorder/30 z-30 shrink-0">
         <span onclick="openModal('Descubre', '<p class=\'text-white text-xs\'>Contenido de creadores y noticias de criptomonedas en tiempo real.</p>', 'fa-compass')" class="text-white font-bold border-b-2 border-binanceYellow pb-0.5 cursor-pointer">Descubre</span>
         <span onclick="openModal('Siguiendo', '<p class=\'text-white text-xs\'>Actualizaciones de tus perfiles y canales seguidos.</p>', 'fa-users')" class="cursor-pointer hover:text-white">Siguiendo</span>
@@ -224,7 +225,7 @@
         <i class="fa-solid fa-chevron-up text-[10px] text-binanceTextGray cursor-pointer" onclick="openModal('Menú Expandido', '<p class=\'text-white text-xs\'>Opciones avanzadas de navegación.</p>', 'fa-bars')"></i>
     </div>
 
-    <!-- Bottom Navigation Bar (Fixed Exact Binance Icons & Layout) -->
+    <!-- Bottom Navigation Bar -->
     <nav class="absolute bottom-0 left-0 right-0 h-16 bg-binanceDark border-t border-binanceBorder/40 flex justify-around items-center px-2 z-40 shrink-0">
         <div onclick="openModal('Inicio', '<p class=\'text-white text-xs text-center\'>Estás en el panel principal de LinkServi Pro - Binance Style.</p>', 'fa-house')" class="flex flex-col items-center text-binanceYellow cursor-pointer active:scale-95 transition-transform">
             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.5L18.5 12 12 18.5 5.5 12 12 5.5z"/></svg>
