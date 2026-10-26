@@ -1,0 +1,16 @@
+{
+  "name": "Binance",
+  "short_name": "Binance",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#181A20",
+  "theme_color": "#181A20",
+  "icons": [
+    {
+      "src": "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
