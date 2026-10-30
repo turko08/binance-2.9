@@ -33,124 +33,121 @@
         body { background-color: #181A20; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .animate-slide-up { animation: slideUp 0.25s cubic-bezier(0.1, 0.9, 0.2, 1) forwards; }
     </style>
 </head>
-<body class="flex flex-col h-screen max-w-md mx-auto relative overflow-hidden">
+<body class="flex flex-col h-screen max-w-md mx-auto relative overflow-hidden select-none">
 
-    <!-- TOP HEADER (BINANCE STYLE) -->
-    <header class="flex items-center justify-between px-4 py-3 bg-binanceDark">
-        <!-- Profile / Avatar -->
+    <!-- TOP HEADER -->
+    <header class="flex items-center justify-between px-4 py-3 bg-binanceDark z-10 border-b border-binanceBorder/30">
         <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-binanceCardLight flex items-center justify-center text-binanceYellow text-xs font-bold border border-binanceBorder">
+            <div onclick="openAction('Perfil')" class="w-8 h-8 rounded-full bg-binanceCardLight flex items-center justify-center text-binanceYellow text-xs font-bold border border-binanceBorder cursor-pointer">
                 <i class="fa-solid fa-user text-xs"></i>
             </div>
-            <!-- Search Bar -->
-            <div class="flex items-center bg-binanceCard rounded-full px-3 py-1.5 w-44 space-x-2 border border-binanceBorder">
+            <div onclick="openAction('Búsqueda')" class="flex items-center bg-binanceCard rounded-full px-3 py-1.5 w-44 space-x-2 border border-binanceBorder cursor-pointer">
                 <i class="fa-solid fa-magnifying-glass text-binanceTextGray text-xs"></i>
                 <span class="text-[11px] text-binanceTextGray truncate">PARTI es una de las...</span>
             </div>
         </div>
-        <!-- Right Icons -->
         <div class="flex items-center space-x-4 text-binanceTextGray">
-            <button class="hover:text-white"><i class="fa-solid fa-headset text-sm"></i></button>
-            <button class="hover:text-white relative">
+            <button onclick="openAction('Soporte')" class="hover:text-white"><i class="fa-solid fa-headset text-sm"></i></button>
+            <button onclick="openAction('Notificaciones')" class="hover:text-white relative">
                 <i class="fa-solid fa-comment-dots text-sm"></i>
                 <span class="absolute -top-1 -right-1 bg-binanceRed text-white text-[9px] px-1 rounded-full font-bold">99+</span>
             </button>
         </div>
     </header>
 
-    <!-- MAIN SCROLLABLE CONTAINER -->
-    <main class="flex-1 overflow-y-auto hide-scrollbar pb-24">
-        
-        <!-- ASSET BALANCE CARD -->
+    <!-- VISTA 1: INICIO (HOME) -->
+    <main id="tab-home" class="tab-view flex-1 overflow-y-auto hide-scrollbar pb-24">
         <div class="px-4 pt-2 pb-3 bg-binanceDark">
             <div class="flex items-center space-x-1 text-binanceTextGray text-xs mb-1">
                 <span>Valor total estimado(USDT)</span>
-                <button id="toggleBalance" class="focus:outline-none"><i class="fa-solid fa-chevron-up text-[10px]"></i></button>
+                <button id="toggleBalance" class="focus:outline-none p-1"><i id="eyeIcon" class="fa-solid fa-chevron-up text-[10px]"></i></button>
             </div>
             
             <div class="flex items-baseline justify-between">
                 <div class="flex items-baseline space-x-2">
                     <h2 id="balanceAmount" class="text-3xl font-black tracking-tight">190.28</h2>
                 </div>
-                <button onclick="openModal('Depositar')" class="bg-binanceYellow text-binanceDark font-bold text-xs px-4 py-2 rounded-lg shadow-sm">
+                <button onclick="openAction('Depositar USDT')" class="bg-binanceYellow text-binanceDark font-bold text-xs px-4 py-2 rounded-lg shadow-sm active:scale-95 transition">
                     Depositar
                 </button>
             </div>
 
-            <div class="text-xs text-binanceTextGray mt-1">≈Bs1,131.64</div>
-            <div class="text-[11px] text-binanceTextGray mt-1 flex items-center">
+            <div id="subBalance" class="text-xs text-binanceTextGray mt-1">≈Bs1,131.64</div>
+            <div class="text-[11px] text-binanceTextGray mt-1 flex items-center cursor-pointer" onclick="openAction('Detalles PNL')">
                 <span>PNL de hoy</span> 
                 <span class="text-binanceGreen ml-1">+0.0003072 USDT (+0.00%)</span>
                 <i class="fa-solid fa-chevron-down text-[9px] ml-1"></i>
             </div>
 
-            <!-- PRIMARY ACTIONS ROW (Enviar, Comprar/vender, P2P) -->
+            <!-- PRIMARY ACTIONS -->
             <div class="grid grid-cols-3 gap-2 mt-4">
-                <button onclick="openModal('Enviar')" class="flex items-center justify-center space-x-1.5 py-2.5 rounded-xl bg-binanceCard hover:bg-binanceBorder transition border border-binanceBorder">
+                <button onclick="openAction('Enviar Cripto')" class="flex items-center justify-center space-x-1.5 py-2.5 rounded-xl bg-binanceCard active:bg-binanceBorder transition border border-binanceBorder">
                     <i class="fa-solid fa-arrow-right-arrow-left text-binanceYellow text-xs rotate-90"></i>
                     <span class="text-xs font-medium text-white">Enviar</span>
                 </button>
-                <button onclick="openModal('Comprar/vender')" class="flex items-center justify-center space-x-1.5 py-2.5 rounded-xl bg-binanceCard hover:bg-binanceBorder transition border border-binanceBorder">
+                <button onclick="openAction('Comprar/Vender')" class="flex items-center justify-center space-x-1.5 py-2.5 rounded-xl bg-binanceCard active:bg-binanceBorder transition border border-binanceBorder">
                     <i class="fa-solid fa-arrow-down-up-across-line text-binanceYellow text-xs"></i>
                     <span class="text-xs font-medium text-white">Comprar/vender</span>
                 </button>
-                <button onclick="openModal('P2P')" class="flex items-center justify-center space-x-1.5 py-2.5 rounded-xl bg-binanceCard hover:bg-binanceBorder transition border border-binanceBorder">
+                <button onclick="openP2P()" class="flex items-center justify-center space-x-1.5 py-2.5 rounded-xl bg-binanceCard active:bg-binanceBorder transition border border-binanceBorder">
                     <i class="fa-solid fa-user-group text-binanceYellow text-xs"></i>
                     <span class="text-xs font-medium text-white">P2P</span>
                 </button>
             </div>
 
-            <!-- SECONDARY QUICK ACTIONS GRID (Spot, Referido, Binance Verify, P2P, Más) -->
+            <!-- SECONDARY ACTIONS -->
             <div class="grid grid-cols-5 gap-1 mt-4 text-center">
-                <button onclick="openModal('Spot')" class="flex flex-col items-center justify-center p-1">
+                <button onclick="openAction('Trading Spot')" class="flex flex-col items-center justify-center p-1 active:opacity-70">
                     <div class="w-10 h-10 rounded-full bg-binanceCard flex items-center justify-center text-binanceYellow mb-1 border border-binanceBorder"><i class="fa-solid fa-chart-pie text-sm"></i></div>
                     <span class="text-[10px] text-binanceTextGray">Spot</span>
                 </button>
-                <button onclick="openModal('Referido')" class="flex flex-col items-center justify-center p-1">
+                <button onclick="openAction('Programa de Referidos')" class="flex flex-col items-center justify-center p-1 active:opacity-70">
                     <div class="w-10 h-10 rounded-full bg-binanceCard flex items-center justify-center text-binanceYellow mb-1 border border-binanceBorder"><i class="fa-solid fa-user-plus text-sm"></i></div>
                     <span class="text-[10px] text-binanceTextGray">Referido</span>
                 </button>
-                <button onclick="openModal('Binance Verify')" class="flex flex-col items-center justify-center p-1">
+                <button onclick="openAction('Estado de Verificación')" class="flex flex-col items-center justify-center p-1 active:opacity-70">
                     <div class="w-10 h-10 rounded-full bg-binanceCard flex items-center justify-center text-binanceYellow mb-1 border border-binanceBorder"><i class="fa-solid fa-circle-check text-sm"></i></div>
                     <span class="text-[10px] text-binanceTextGray">Binance Verify</span>
                 </button>
-                <button onclick="openModal('P2P')" class="flex flex-col items-center justify-center p-1">
+                <button onclick="openP2P()" class="flex flex-col items-center justify-center p-1 active:opacity-70">
                     <div class="w-10 h-10 rounded-full bg-binanceCard flex items-center justify-center text-binanceYellow mb-1 border border-binanceBorder"><i class="fa-solid fa-people-arrows text-sm"></i></div>
                     <span class="text-[10px] text-binanceTextGray">P2P</span>
                 </button>
-                <button onclick="openModal('Más')" class="flex flex-col items-center justify-center p-1">
+                <button onclick="openAction('Más Servicios')" class="flex flex-col items-center justify-center p-1 active:opacity-70">
                     <div class="w-10 h-10 rounded-full bg-binanceCard flex items-center justify-center text-binanceYellow mb-1 border border-binanceBorder"><i class="fa-solid fa-table-cells text-sm"></i></div>
                     <span class="text-[10px] text-binanceTextGray">Más</span>
                 </button>
             </div>
         </div>
 
-        <!-- TWO COLUMN WIDGETS SECTION -->
+        <!-- WIDGETS -->
         <div class="px-4 grid grid-cols-2 gap-3 mt-2">
-            <!-- Left Card: USD / Tarjeta -->
-            <div class="bg-binanceCard p-3.5 rounded-2xl border border-binanceBorder flex flex-col justify-between">
+            <div onclick="openAction('Tarjeta VISA')" class="bg-binanceCard p-3.5 rounded-2xl border border-binanceBorder flex flex-col justify-between cursor-pointer active:scale-98 transition">
                 <div>
                     <div class="flex items-center space-x-1.5 mb-2">
                         <div class="w-5 h-5 rounded-full bg-binanceYellow text-binanceDark flex items-center justify-center font-bold text-[10px]">$</div>
                         <span class="text-xs font-bold text-white">USD</span>
                     </div>
                     <div class="bg-binanceCardLight inline-block px-2 py-0.5 rounded text-[10px] text-binanceGreen font-medium mb-2">Depósito</div>
-                    <p class="text-xs font-bold leading-tight">Tarjeta (VISA/Mastercard)</p>
+                    <p class="text-xs font-bold leading-tight">Tarjeta (VISA/ Mastercard)</p>
                 </div>
                 <div class="flex items-center justify-between mt-4">
                     <i class="fa-regular fa-credit-card text-binanceTextGray text-lg"></i>
                     <div class="flex space-x-1">
                         <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
                         <span class="w-1.5 h-1.5 rounded-full bg-binanceTextGray"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-binanceTextGray"></span>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Card: Earn -->
-            <div class="bg-binanceCard p-3.5 rounded-2xl border border-binanceBorder flex flex-col justify-between">
+            <div onclick="openAction('Binance Earn')" class="bg-binanceCard p-3.5 rounded-2xl border border-binanceBorder flex flex-col justify-between cursor-pointer active:scale-98 transition">
                 <div>
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-bold text-binanceTextGray">Earn</span>
@@ -173,14 +170,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 pt-2"></div>
             </div>
         </div>
 
-        <!-- COINS GRID CARDS (BTC & BNB) -->
+        <!-- COINS -->
         <div class="px-4 grid grid-cols-2 gap-3 mt-3">
-            <!-- BTC Card -->
-            <div class="bg-binanceCard p-3.5 rounded-2xl border border-binanceBorder" onclick="selectCoin('BTC', '77,470.38')">
+            <div onclick="openCoinTrade('BTC', '77,470.38', '-4.54%')" class="bg-binanceCard p-3.5 rounded-2xl border border-binanceBorder cursor-pointer active:scale-98 transition">
                 <div class="flex items-center space-x-1.5 mb-2">
                     <div class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">₿</div>
                     <span class="text-xs font-bold text-white">BTC</span>
@@ -189,8 +184,7 @@
                 <div class="text-[11px] text-binanceRed font-semibold mt-0.5"><i class="fa-solid fa-caret-down"></i> 4.54%</div>
             </div>
 
-            <!-- BNB Card -->
-            <div class="bg-binanceCard p-3.5 rounded-2xl border border-binanceBorder" onclick="selectCoin('BNB', '692.34')">
+            <div onclick="openCoinTrade('BNB', '692.34', '-8.76%')" class="bg-binanceCard p-3.5 rounded-2xl border border-binanceBorder cursor-pointer active:scale-98 transition">
                 <div class="flex items-center space-x-1.5 mb-2">
                     <div class="w-6 h-6 rounded-full bg-binanceYellow/20 text-binanceYellow flex items-center justify-center font-bold text-xs">B</div>
                     <span class="text-xs font-bold text-white">BNB</span>
@@ -200,73 +194,201 @@
             </div>
         </div>
 
-        <!-- BOTTOM TABS HEADER (Descubre, Siguiendo, Acciones...) -->
+        <!-- TABS FOOTER -->
         <div class="px-4 mt-5 flex items-center justify-between text-xs text-binanceTextGray border-b border-binanceBorder pb-2">
             <span class="text-white font-bold border-b-2 border-binanceYellow pb-2 -mb-2">Descubre</span>
-            <span>Siguiendo</span>
-            <span>Acciones</span>
-            <span>Clasifica</span>
+            <span class="cursor-pointer" onclick="openAction('Siguiendo')">Siguiendo</span>
+            <span class="cursor-pointer" onclick="openAction('Acciones')">Acciones</span>
+            <span class="cursor-pointer" onclick="openAction('Clasificación')">Clasifica</span>
             <i class="fa-solid fa-chevron-up text-[10px]"></i>
         </div>
     </main>
 
-    <!-- BOTTOM NAVIGATION BAR (OFFICIAL BINANCE STYLE) -->
+    <!-- VISTA 2: ACTIVOS / BILLETERA (WALLETS) -->
+    <main id="tab-wallet" class="tab-view flex-1 overflow-y-auto hide-scrollbar pb-24 hidden p-4">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold">Resumen de Activos</h2>
+            <i class="fa-solid fa-clock-rotate-left text-binanceTextGray" onclick="openAction('Historial de Transacciones')"></i>
+        </div>
+        <div class="bg-binanceCard p-4 rounded-2xl border border-binanceBorder mb-4">
+            <p class="text-xs text-binanceTextGray mb-1">Balance Total</p>
+            <div class="flex items-baseline space-x-2">
+                <span class="text-2xl font-black">$190.28</span>
+                <span class="text-xs text-binanceTextGray">USDT</span>
+            </div>
+            <p class="text-xs text-binanceGreen mt-1">≈ 190.28 USD</p>
+        </div>
+        <div class="space-y-3">
+            <div class="flex justify-between items-center bg-binanceCard p-3 rounded-xl border border-binanceBorder">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-binanceGreen/20 text-binanceGreen flex items-center justify-center font-bold">₮</div>
+                    <div>
+                        <p class="font-bold text-sm">USDT</p>
+                        <p class="text-xs text-binanceTextGray">Tether US</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="font-bold text-sm">190.28</p>
+                    <p class="text-xs text-binanceTextGray">$190.28</p>
+                </div>
+            </div>
+            <div class="flex justify-between items-center bg-binanceCard p-3 rounded-xl border border-binanceBorder">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">₿</div>
+                    <div>
+                        <p class="font-bold text-sm">BTC</p>
+                        <p class="text-xs text-binanceTextGray">Bitcoin</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="font-bold text-sm">0.00000000</p>
+                    <p class="text-xs text-binanceTextGray">$0.00</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- BOTTOM NAVIGATION BAR -->
     <nav class="absolute bottom-0 left-0 right-0 h-16 bg-binanceDark border-t border-binanceBorder flex justify-around items-center px-1 z-30">
-        <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-binanceYellow">
+        <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center text-binanceYellow">
             <i class="fa-solid fa-house text-base"></i>
             <span class="text-[10px] mt-1 font-medium">Inicio</span>
         </button>
-        <button onclick="switchTab('markets')" id="nav-markets" class="flex flex-col items-center text-binanceTextGray">
-            <i class="fa-solid fa-chart-line text-base"></i>
+        <button onclick="openAction('Servicios de Tarjeta')" id="nav-markets" class="nav-btn flex flex-col items-center text-binanceTextGray">
+            <i class="fa-solid fa-credit-card text-base"></i>
             <span class="text-[10px] mt-1 font-medium">Tarjeta</span>
         </button>
-        <!-- Center Floating QR Button -->
-        <button onclick="openModal('QR Code')" class="flex flex-col items-center text-binanceTextGray -mt-3">
-            <div class="w-12 h-12 rounded-full bg-binanceYellow text-binanceDark flex items-center justify-center shadow-lg border-4 border-binanceDark">
+        
+        <!-- Center QR Button -->
+        <button onclick="openScanner()" class="flex flex-col items-center text-binanceTextGray -mt-3">
+            <div class="w-12 h-12 rounded-full bg-binanceYellow text-binanceDark flex items-center justify-center shadow-lg border-4 border-binanceDark active:scale-90 transition">
                 <i class="fa-solid fa-qrcode text-lg font-black"></i>
             </div>
         </button>
-        <button onclick="switchTab('futures')" id="nav-futures" class="flex flex-col items-center text-binanceTextGray">
-            <i class="fa-solid fa-arrow-right-arrow-left text-base"></i>
+
+        <button onclick="openAction('Plataforma de Inversión')" id="nav-futures" class="nav-btn flex flex-col items-center text-binanceTextGray">
+            <i class="fa-solid fa-chart-line text-base"></i>
             <span class="text-[10px] mt-1 font-medium">Invertir</span>
         </button>
-        <button onclick="switchTab('wallet')" id="nav-wallet" class="flex flex-col items-center text-binanceTextGray">
+        <button onclick="switchTab('wallet')" id="nav-wallet" class="nav-btn flex flex-col items-center text-binanceTextGray">
             <i class="fa-solid fa-wallet text-base"></i>
             <span class="text-[10px] mt-1 font-medium">Activos</span>
         </button>
     </nav>
 
-    <!-- MODAL POPUP -->
+    <!-- DYNAMIC BOTTOM SHEET MODAL -->
     <div id="actionModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-end">
-        <div class="bg-binanceCard w-full rounded-t-2xl p-5 border-t border-binanceBorder animate-slideUp">
+        <div class="bg-binanceCard w-full rounded-t-2xl p-5 border-t border-binanceBorder animate-slide-up">
             <div class="flex justify-between items-center mb-4">
-                <h3 id="modalTitle" class="text-base font-bold">Acción</h3>
+                <h3 id="modalTitle" class="text-base font-bold">Operación</h3>
                 <button onclick="closeModal()" class="text-binanceTextGray hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div class="space-y-4">
-                <div class="bg-binanceDark p-3 rounded-xl border border-binanceBorder">
+            <div id="modalBody" class="space-y-4">
+                <div class="bg-binanceDark p-3.5 rounded-xl border border-binanceBorder">
                     <p class="text-xs text-binanceTextGray mb-1">Monto Disponible</p>
-                    <p class="text-lg font-bold">190.28 USDT</p>
+                    <p class="text-xl font-black text-white">190.28 USDT</p>
                 </div>
                 <div>
-                    <label class="text-xs text-binanceTextGray block mb-1">Ingrese cantidad</label>
-                    <input type="number" placeholder="0.00" class="w-full bg-binanceDark border border-binanceBorder rounded-xl p-3 text-white focus:outline-none focus:border-binanceYellow">
+                    <label class="text-xs text-binanceTextGray block mb-1">Ingrese importe</label>
+                    <input type="number" placeholder="0.00" class="w-full bg-binanceDark border border-binanceBorder rounded-xl p-3 text-white focus:outline-none focus:border-binanceYellow text-lg font-bold">
                 </div>
-                <button onclick="executeAction()" class="w-full py-3 bg-binanceYellow text-binanceDark font-bold rounded-xl text-sm mt-2">Confirmar Operación</button>
+                <button onclick="confirmAction()" class="w-full py-3.5 bg-binanceYellow text-binanceDark font-bold rounded-xl text-sm active:scale-98 transition">Confirmar</button>
             </div>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- P2P MODAL OVERLAY -->
+    <div id="p2pModal" class="fixed inset-0 bg-binanceDark z-50 hidden flex flex-col animate-slide-up">
+        <div class="flex items-center justify-between p-4 border-b border-binanceBorder">
+            <div class="flex items-center space-x-4">
+                <button onclick="closeP2P()" class="text-binanceTextGray"><i class="fa-solid fa-arrow-left text-lg"></i></button>
+                <h3 class="font-bold text-base">Comercio P2P</h3>
+            </div>
+            <span class="text-xs bg-binanceCard px-2.5 py-1 rounded-full text-binanceYellow border border-binanceBorder">VES (Bs)</span>
+        </div>
+        <div class="p-4 flex-1 overflow-y-auto space-y-3">
+            <div class="flex space-x-4 border-b border-binanceBorder pb-2 text-sm font-bold">
+                <button class="text-binanceGreen border-b-2 border-binanceGreen pb-2 -mb-2">Comprar</button>
+                <button class="text-binanceTextGray">Vender</button>
+            </div>
+            <!-- P2P Orders -->
+            <div class="bg-binanceCard p-3.5 rounded-xl border border-binanceBorder space-y-2">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-sm">Cambios_Fast_VE <i class="fa-solid fa-circle-check text-binanceYellow text-xs"></i></span>
+                    <span class="text-xs text-binanceTextGray">99.8% Ordenes</span>
+                </div>
+                <div class="flex justify-between items-baseline">
+                    <span class="text-xs text-binanceTextGray">Precio:</span>
+                    <span class="text-lg font-black text-white">Bs 59.45</span>
+                </div>
+                <div class="flex justify-between text-[11px] text-binanceTextGray">
+                    <span>Disponible: 500.00 USDT</span>
+                    <span>Límite: Bs 500 - Bs 20,000</span>
+                </div>
+                <button onclick="openAction('Comprar USDT P2P')" class="w-full py-2 bg-binanceGreen text-white font-bold rounded-lg text-xs mt-1">Comprar USDT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR SCANNER OVERLAY -->
+    <div id="qrModal" class="fixed inset-0 bg-black z-50 hidden flex flex-col justify-between p-6 animate-slide-up">
+        <div class="flex justify-between items-center text-white">
+            <button onclick="closeScanner()"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <span class="text-sm font-bold">Escanear QR</span>
+            <i class="fa-solid fa-image text-lg"></i>
+        </div>
+        <div class="w-64 h-64 mx-auto border-2 border-binanceYellow rounded-3xl relative flex items-center justify-center">
+            <div class="w-full h-0.5 bg-binanceYellow absolute animate-pulse"></div>
+            <p class="text-xs text-binanceTextGray text-center px-4">Alinee el código QR de Binance dentro del marco</p>
+        </div>
+        <div class="text-center text-xs text-binanceTextGray pb-6">
+            Soporta Binance Pay, Códigos C2P y Crypto Address
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ENGINE -->
     <script>
-        let isHidden = false;
+        let balanceHidden = false;
+
+        // Balance Eye Toggle
         document.getElementById('toggleBalance').addEventListener('click', () => {
-            isHidden = !isHidden;
-            document.getElementById('balanceAmount').innerText = isHidden ? '••••••••' : '190.28';
+            balanceHidden = !balanceHidden;
+            const balanceEl = document.getElementById('balanceAmount');
+            const subBalanceEl = document.getElementById('subBalance');
+            const icon = document.getElementById('eyeIcon');
+            
+            if (balanceHidden) {
+                balanceEl.innerText = '••••••••';
+                subBalanceEl.innerText = '••••••••';
+                icon.className = 'fa-solid fa-chevron-down text-[10px]';
+            } else {
+                balanceEl.innerText = '190.28';
+                subBalanceEl.innerText = '≈Bs1,131.64';
+                icon.className = 'fa-solid fa-chevron-up text-[10px]';
+            }
         });
 
-        function openModal(actionName) {
-            document.getElementById('modalTitle').innerText = actionName + ' - Binance';
+        // Tab Navigation
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('text-binanceYellow');
+                el.classList.add('text-binanceTextGray');
+            });
+
+            const activeTab = document.getElementById('tab-' + tabName);
+            const activeBtn = document.getElementById('nav-' + tabName);
+
+            if (activeTab) activeTab.classList.remove('hidden');
+            if (activeBtn) {
+                activeBtn.classList.remove('text-binanceTextGray');
+                activeBtn.classList.add('text-binanceYellow');
+            }
+        }
+
+        // Generic Bottom Sheet Action Modal
+        function openAction(title) {
+            document.getElementById('modalTitle').innerText = title;
             document.getElementById('actionModal').classList.remove('hidden');
         }
 
@@ -274,18 +396,31 @@
             document.getElementById('actionModal').classList.add('hidden');
         }
 
-        function executeAction() {
-            alert('¡Operación realizada con éxito!');
+        function confirmAction() {
             closeModal();
         }
 
-        function selectCoin(symbol, price) {
-            openModal('Operar ' + symbol + ' (' + price + ')');
+        // Coin Trade Modal
+        function openCoinTrade(symbol, price, change) {
+            openAction('Trading ' + symbol + '/USDT ($' + price + ')');
         }
 
-        function switchTab(tab) {
-            const tabs = ['home', 'markets', 'futures', 'wallet'];
-            // Simple tab switching logic for UI feedback
+        // P2P Market Overlay
+        function openP2P() {
+            document.getElementById('p2pModal').classList.remove('hidden');
+        }
+
+        function closeP2P() {
+            document.getElementById('p2pModal').classList.add('hidden');
+        }
+
+        // QR Code Scanner Overlay
+        function openScanner() {
+            document.getElementById('qrModal').classList.remove('hidden');
+        }
+
+        function closeScanner() {
+            document.getElementById('qrModal').classList.add('hidden');
         }
     </script>
 </body>
